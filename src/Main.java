@@ -2,6 +2,12 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
+        // Listinha para testar
+        // Hash : Multiplicação, Resto De Divisão, Dobramento
+        // Tamanhos Tabela: 14000, 70000, 35000, 700000, 3500000
+        // Insercoes: 20 mil, 100 mil, 500 mil, 1 milhão e 5 milhões
+        // Testes realizados: 0
+        // Testes completos:
 
 
         int[] variaveisInsercao = {20000, 100000, 500000, 1000000, 5000000};
