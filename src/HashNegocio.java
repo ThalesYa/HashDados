@@ -3,14 +3,15 @@ public class HashNegocio {
     private ListaEncadeada[] tabela;
     private int colisoes;
 
-    public HashNegocio(int tamanho){
+
+    public HashNegocio(int tamanho) {
         this.tamanho = tamanho;
         tabela = new ListaEncadeada[tamanho];
         PreencherLista();
         this.colisoes = 0;
     }
 
-    public void PreencherLista(){
+    public void PreencherLista() {
         for (int i = 0; i < tamanho; i++) {
             tabela[i] = new ListaEncadeada();
         }
@@ -25,33 +26,30 @@ public class HashNegocio {
         return i;
     }
 
-    public int FuncaoHashRestoDeDivisao(int dado){
+    public int FuncaoHashRestoDeDivisao(int dado) {
         int i = dado % tamanho;
         return i;
     }
 
-    public int FuncaoHashDobramento(int dado){
-            int dobramento = 0; // Variável auxiliar para o dobramento
-            int ultimodado = dado; //Variável auxiliar para remover os digitos e somando no dobramento
+    public int FuncaoHashDobramento(int dado) {
+        int primeiroTrio = dado / 1000000; // Pega os primeiros 3 dígitos
+        int segundoTrio = (dado / 1000) % 1000; // Pega os próximos 3 dígitos
+        int terceiroTrio = dado % 1000; // Pega os últimos 3 dígitos
 
-            while (ultimodado > 0) { // Loop para identificar se nossa variável auxiliar está vazia
-                int digito = ultimodado % 10; // Pega o último dígito da nossa variável
-                dobramento += digito; //Adiciona e soma na nossa Variável auxiliar de dobramento
-                ultimodado /= 10; // Remove o último dígito
-            }
+        int resultado = primeiroTrio + segundoTrio + terceiroTrio;
 
-            int i = FuncaoHashRestoDeDivisao(dobramento); //Chama a função que pega o mod do número pelo tamanho da tabela
-            return i; // Rertorna o indice para adicionar na tabela
+        return resultado;
+
     }
 
 
     // METODOS DE INSERCAO ------------------------------------------------------------------------------------------------------
 
     //Metódos para inserir utilizando resto da divisao como funcao hash
-    public void InserirHashDivisao(Registro r){
+    public void InserirHashDivisao(Registro r) {
         int dado = r.getCodigo();
         int i = FuncaoHashRestoDeDivisao(dado);
-        if(tabela[i].getPrimeiro()!=null){
+        if (tabela[i].getPrimeiro() != null) {
             colisoes++;
         }
         tabela[i].InserirListaEncad(r);
@@ -59,19 +57,20 @@ public class HashNegocio {
 
 
     //Metódos para inserir utilizando multiplicacao como funcao hash
-    public void InserirHashMultiplicacao(Registro r){
+    public void InserirHashMultiplicacao(Registro r) {
         int dado = r.getCodigo();
         int i = FuncaoHashMultiplicacao(dado);
-        if(tabela[i].getPrimeiro()!=null){
+        if (tabela[i].getPrimeiro() != null) {
             colisoes++;
         }
         tabela[i].InserirListaEncad(r);
     }
+
     //Metódos para inserir utilizando dobramento como funcao hash
-    public void InserirHashDobramento(Registro r){
+    public void InserirHashDobramento(Registro r) {
         int dado = r.getCodigo();
         int i = FuncaoHashDobramento(dado);
-        if(tabela[i].getPrimeiro()!=null){
+        if (tabela[i].getPrimeiro() != null) {
             colisoes++;
         }
         tabela[i].InserirListaEncad(r);
@@ -82,8 +81,7 @@ public class HashNegocio {
 
 
     //Metódo de busca
-    public int BuscarTabelaHash(Registro r) {
-        int dado = r.getCodigo();
+    public int BuscarTabelaHash(int dado) {
         int i = FuncaoHashDobramento(dado); // Encontra o índice usando a função de hash
         ListaEncadeada lista = tabela[i]; // Obtém a lista encadeada no índice
 
@@ -92,7 +90,7 @@ public class HashNegocio {
         // Percorre a lista encadeada para procurar o dado
         while (atual != null) {
             if (atual.valor.getCodigo() == dado) {
-                System.out.println("Número encontrado no índice: " + i);
+                //System.out.println("Número encontrado no índice: " + i);
                 return i;
             }
             atual = atual.proximo;
@@ -101,6 +99,7 @@ public class HashNegocio {
         System.out.println("Número não encontrado");
         return -1; // Retorna -1 se o dado não for encontrado
     }
+
     public void MostrarTabelaHash() {
         for (int i = 0; i < tamanho; i++) {
             System.out.print("Linha[" + i + "]: ");
@@ -122,7 +121,7 @@ public class HashNegocio {
         return colisoes;
     }
 
-    public int getTamanho(){
+    public int getTamanho() {
         return tamanho;
     }
 }
