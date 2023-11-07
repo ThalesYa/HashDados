@@ -5,8 +5,16 @@ public class ListaEncadeada {
         primeiro = null;
     }
 
-    public void InserirListaEncad(int data) {
-        Node newNode = new Node(data);
+    public Node getPrimeiro() {
+        return primeiro;
+    }
+
+    public void setPrimeiro(Node primeiro) {
+        this.primeiro = primeiro;
+    }
+
+    public void InserirListaEncad(Registro r) {
+        Node newNode = new Node(r);
         if (primeiro == null) {
             primeiro = newNode;
         } else {

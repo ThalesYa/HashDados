@@ -3,8 +3,8 @@ public class HashNegocio {
     private ListaEncadeada[] tabela;
     private int colisoes;
 
-    public HashNegocio(){
-        this.tamanho = 10;
+    public HashNegocio(int tamanho){
+        this.tamanho = tamanho;
         tabela = new ListaEncadeada[tamanho];
         PreencherLista();
         this.colisoes = 0;
@@ -21,7 +21,7 @@ public class HashNegocio {
         double multiplicacaoka = dado * A; // dado * 0,6180339887
         double fracao = multiplicacaoka - (int) multiplicacaoka; //Arrendondar resultado fracionado
         int i = (int) (tamanho * fracao); // Tamanho da tabela vezes o número
-        return i; // Retorna o krl
+        return i;
     }
 
     public int FuncaoHashRestoDeDivisao(int dado){
@@ -43,12 +43,44 @@ public class HashNegocio {
             return i; // Rertorna o indice para adicionar na tabela
     }
 
+
+    // METODOS DE INSERCAO ------------------------------------------------------------------------------------------------------
+
     public void InserirHash(int dado){
         int i = FuncaoHashRestoDeDivisao(dado);
-        tabela[i].InserirListaEncad(dado);
+        if(tabela[i].getPrimeiro()!=null){
+            colisoes++;
+        }
+        tabela[i].InserirListaEncad(r);
     }
 
-    public int BuscarTabelaHash(int dado) {
+
+    //Metódos para inserir utilizando multiplicacao como funcao hash
+    public void InserirHashMultiplicacao(Registro r){
+        int dado = r.getCodigo();
+        int i = FuncaoHashMultiplicacao(dado);
+        if(tabela[i].getPrimeiro()!=null){
+            colisoes++;
+        }
+        tabela[i].InserirListaEncad(r);
+    }
+    //Metódos para inserir utilizando dobramento como funcao hash
+    public void InserirHashDobramento(Registro r){
+        int dado = r.getCodigo();
+        int i = FuncaoHashDobramento(dado);
+        if(tabela[i].getPrimeiro()!=null){
+            colisoes++;
+        }
+        tabela[i].InserirListaEncad(r);
+    }
+
+
+    //------------------------------------------------------------------------------------------------------------------------
+
+
+    //Metódo de busca
+    public int BuscarTabelaHash(Registro r) {
+        int dado = r.getCodigo();
         int i = FuncaoHashDobramento(dado); // Encontra o índice usando a função de hash
         ListaEncadeada lista = tabela[i]; // Obtém a lista encadeada no índice
 
@@ -83,7 +115,6 @@ public class HashNegocio {
     }
 
     public int getColisoes() {
-        System.out.println("Número total de colisões: " + colisoes);
         return colisoes;
     }
 

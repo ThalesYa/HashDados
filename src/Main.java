@@ -13,8 +13,9 @@ public class Main {
             long startTime = System.nanoTime(); // Tempo inicial
 
             for (int i = 0; i < tamanhoEscolhido; i++) {
-                int dado = random.nextInt(900000000) + 100000000; // Gera números de 9 dígitos
-                tabelaHash.InserirHash(dado);
+                Registro r;
+                r = new Registro(random.nextInt(900000000) + 100000000); // Gera números de 9 dígitos
+                tabelaHash.InserirHashDivisao(r);
             }
 
             long endTime = System.nanoTime(); // Tempo final em nanossegundos
