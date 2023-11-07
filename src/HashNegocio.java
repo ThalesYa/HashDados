@@ -17,6 +17,7 @@ public class HashNegocio {
     }
 
     public int FuncaoHashMultiplicacao(int dado) {
+        // [m([k.A]mod1)] --> k= chave ou dado, m = tam tabela, A= pertence entre 0 e 1
         double A = 0.6180339887;
         double multiplicacaoka = dado * A; // dado * 0,6180339887
         double fracao = multiplicacaoka - (int) multiplicacaoka; //Arrendondar resultado fracionado
@@ -46,7 +47,9 @@ public class HashNegocio {
 
     // METODOS DE INSERCAO ------------------------------------------------------------------------------------------------------
 
-    public void InserirHash(int dado){
+    //Metódos para inserir utilizando resto da divisao como funcao hash
+    public void InserirHashDivisao(Registro r){
+        int dado = r.getCodigo();
         int i = FuncaoHashRestoDeDivisao(dado);
         if(tabela[i].getPrimeiro()!=null){
             colisoes++;
@@ -88,7 +91,7 @@ public class HashNegocio {
 
         // Percorre a lista encadeada para procurar o dado
         while (atual != null) {
-            if (atual.valor == dado) {
+            if (atual.valor.getCodigo() == dado) {
                 System.out.println("Número encontrado no índice: " + i);
                 return i;
             }
@@ -98,7 +101,6 @@ public class HashNegocio {
         System.out.println("Número não encontrado");
         return -1; // Retorna -1 se o dado não for encontrado
     }
-
     public void MostrarTabelaHash() {
         for (int i = 0; i < tamanho; i++) {
             System.out.print("Linha[" + i + "]: ");
@@ -114,6 +116,8 @@ public class HashNegocio {
         }
     }
 
+
+    //Getters e setters
     public int getColisoes() {
         return colisoes;
     }

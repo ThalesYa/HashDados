@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        HashNegocio tabelaHash = new HashNegocio();
+        HashNegocio tabelaHash = new HashNegocio(150);
 
         int tamanhoEscolhido = 5000; // Escolha o tamanho desejado: 10k, 50k, 1000k, etc.
         Random random = new Random();
@@ -24,16 +24,7 @@ public class Main {
 
             System.out.println("Tabela com tamanho: "+ tabelaHash.getTamanho());
             System.out.println("Tabela com: " + tamanhoEscolhido + " elementos inseridos em " + tempoDecorridoMillis + " milissegundos.");
+            System.out.printf("Piroca" + tabelaHash.getColisoes());
         }
-
-//        // Buscar na tabela
-//        int dadoParaBuscar = 395345345;
-//        int resultadoBusca = tabelaHash.BuscarTabelaHash(dadoParaBuscar);
-//        if (resultadoBusca != -1) {
-//            System.out.println("Número " + dadoParaBuscar + " encontrado no índice: " + resultadoBusca);
-//        } else {
-//            System.out.println("Número " + dadoParaBuscar + " não encontrado");
-//        }
-
     }
 }

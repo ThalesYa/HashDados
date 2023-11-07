@@ -1,8 +1,8 @@
 public class Node {
-    int valor;
+    Registro valor;
     Node proximo;
 
-    public Node(int valor) {
+    public Node(Registro valor) {
         this.valor = valor;
         this.proximo = null;
     }
